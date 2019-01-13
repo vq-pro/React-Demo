@@ -1,0 +1,40 @@
+# Spring
+spring.main.banner-mode: "off"
+
+# Log
+logging:
+  level.: WARN
+  level.org.springframework.web: WARN
+  level.org.hibernate: WARN
+
+  level.org.hibernate.SQL: WARN
+  level.org.hibernate.type.descriptor.sql.BasicBinder: WARN
+  level.org.hibernate.type: WARN
+
+spring.jpa:
+  show-sql: false
+  properties.hibernate.format_sql: false
+
+# Server
+server:
+  port: 8080
+  sessionTimeout: 30
+
+# Tomcat
+tomcat:
+  accessLogEnabled: false
+  protocolHeader: x-forwarded-proto
+  remoteIpHeader: x-forwarded-for
+  backgroundProcessorDelay: 30
+
+# === Backend ===
+
+# H2 Database
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+
+
