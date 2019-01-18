@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import quebec.virtualite.backend.utils.RestClient;
+import quebec.virtualite.security.SecurityUserManager;
 
 import javax.annotation.PostConstruct;
 
@@ -20,17 +21,31 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ContextConfiguration
 public class RestServerSteps
 {
-    @Autowired
-    private RestClient rest;
+    private static final String TEST_USER = "pat";
+    private static final String TEST_PASSWORD = "123456";
 
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private RestClient rest;
+
+    @Autowired
+    private SecurityUserManager userManager;
+
     @PostConstruct
     public void _init()
     {
+        userManager.defineUser(TEST_USER, TEST_PASSWORD);
+
         int serverPort = Integer.valueOf(environment.getProperty("local.server.port"));
         rest.init(serverPort);
+    }
+
+    @Given("^we are logged in$")
+    public void weAreLoggedIn()
+    {
+        rest.login(TEST_USER, TEST_PASSWORD);
     }
 
     @Given("^we are not logged in$")

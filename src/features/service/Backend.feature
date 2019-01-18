@@ -1,10 +1,8 @@
 @Service
 Feature: Backend demo
 
-#  FIXME0 Add security
-
-  @Ignore
   Scenario: Get Greeting
+    Given we are logged in
     When we ask for a greeting for "Patrick" [GET "/greeting/{name}"]
     Then we get a greeting message
       """
