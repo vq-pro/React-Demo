@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>quebec.virtualite</groupId>
-    <artifactId>React-Demo</artifactId>
+    <artifactId>Backend-Demo</artifactId>
     <version>1.0.0</version>
 
     <packaging>war</packaging>
@@ -33,17 +33,10 @@
         <spring-security-test.version>4.2.3.RELEASE</spring-security-test.version>
         <spring-test.version>4.3.10.RELEASE</spring-test.version>
 
-        <start-class>quebec.virtualite.React-Demo.Application</start-class>
+        <start-class>quebec.virtualite.Backend-Demo.Application</start-class>
 
         <!--Backend-->
-        <postgresql.version>9.4-1202-jdbc42</postgresql.version>
         <rest-assured.version>2.9.0</rest-assured.version>
-
-        <!--Frontend-->
-        <bootstrap.version>3.3.7-1</bootstrap.version>
-        <jquery.version>2.2.4</jquery.version>
-        <selenium-htmlunit.version>2.52.0</selenium-htmlunit.version>
-        <wro4j.version>1.8.0</wro4j.version>
     </properties>
 
     <dependencies>
@@ -65,21 +58,6 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!--UI-->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${jquery.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        
         <!--Spring Boot Test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,13 +69,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring-test.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-htmlunit-driver</artifactId>
-            <version>${selenium-htmlunit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -189,12 +160,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
         </dependency>
     </dependencies>
 
@@ -292,56 +257,6 @@
                 </executions>
             </plugin>
 
-            <!--Wro4J-->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <!-- Serves *only* to filter the wro.xml so it can get an absolute
-                          path for the project -->
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/wro</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/wro</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-maven-plugin</artifactId>
-                <version>${wro4j.version}</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory
-                    </wroManagerFactory>
-                    <cssDestinationFolder>${project.build.directory}/generated-resources/static/css
-                    </cssDestinationFolder>
-                    <jsDestinationFolder>${project.build.directory}/generated-resources/static/js</jsDestinationFolder>
-                    <wroFile>${project.build.directory}/wro/wro.xml</wroFile>
-                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
-                    <contextFolder>${basedir}/src/main/wro</contextFolder>
-                </configuration>
-            </plugin>
-
             <!--Deploy on local Tomcat-->
             <plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
@@ -356,7 +271,7 @@
                         </goals>
                         <configuration>
                             <sourceFile>target/${project.build.finalName}.${project.packaging}</sourceFile>
-                            <destinationFile>${TOMCAT_HOME}/webapps/react-demo.war</destinationFile>
+                            <destinationFile>${TOMCAT_HOME}/webapps/backend-demo.war</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
