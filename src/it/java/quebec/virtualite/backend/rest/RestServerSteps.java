@@ -39,10 +39,11 @@ public class RestServerSteps
         url = url.replace("{name}", name);
 
         // FIXME1 Add security
-        response = given()
-            .expect()
+        response =
+            given()
+                .expect()
             .when()
-            .get(url);
+                .get(url);
 
         response.then()
             .statusCode(200);

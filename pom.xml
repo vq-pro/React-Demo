@@ -10,6 +10,8 @@
 
     <packaging>war</packaging>
 
+    <!--FIXME1 Update Spring Boot version-->
+    <!--FIXME1 Update other libraries' versions-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
