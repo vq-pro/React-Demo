@@ -1,4 +1,4 @@
-package quebec.virtualite.backend.rest;
+package quebec.virtualite.backend.utils;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
