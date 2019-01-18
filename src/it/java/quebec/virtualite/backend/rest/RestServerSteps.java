@@ -1,7 +1,6 @@
 package quebec.virtualite.backend.rest;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.PostConstruct;
 
-import static com.jayway.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -20,53 +19,42 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ContextConfiguration
 public class RestServerSteps
 {
-    private static final char NON_BREAKING_SPACE = (char) 0x00A0;
+    @Autowired
+    private RestClient rest;
 
     @Autowired
     private Environment environment;
 
-    private Response response;
-
     @PostConstruct
     public void _init()
     {
-        RestAssured.port = getServerPort();
+        int serverPort = Integer.valueOf(environment.getProperty("local.server.port"));
+        rest.init(serverPort);
+    }
+
+    @Given("^we are not logged in$")
+    public void weAreNotLoggedIn()
+    {
+        // Nothing to do here
     }
 
     @When("^we ask for a greeting for \"([^\"]*)\" \\[GET \"([^\"]*)\"\\]$")
     public void weAskForAGreetingFor(String name, String url)
     {
-        url = url.replace("{name}", name);
-
-        // FIXME1 Add security
-        response =
-            given()
-                .expect()
-            .when()
-                .get(url);
-
-        response.then()
-            .statusCode(200);
+        rest.get(url
+            .replace("{name}", name));
     }
 
     @Then("^we get a greeting message$")
     public void weGetAGreetingMessage(String expectedJson)
     {
-        assertThat(response.asString(), is(trim(expectedJson)));
+        assertThat(rest.response().statusCode(), is(SC_OK));
+        assertThat(rest.response().asString(), is(rest.trim(expectedJson)));
     }
 
-    private Integer getServerPort()
+    @Then("^we should get a (\\d+) error$")
+    public void weShouldGetAnError(int errorCode)
     {
-        String sPort = environment.getProperty("local.server.port");
-        return Integer.valueOf(sPort);
-    }
-
-    private String trim(String json)
-    {
-        return json
-            .replace(" ", "")
-            .replace("\r", "")
-            .replace("\n", "")
-            .replace(NON_BREAKING_SPACE, ' ');
+        assertThat(rest.response().statusCode(), is(errorCode));
     }
 }

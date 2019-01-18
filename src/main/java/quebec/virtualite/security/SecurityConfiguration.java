@@ -25,6 +25,9 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
+    public static final String XSRF_TOKEN = "XSRF-TOKEN";
+    public static final String X_XSRF_TOKEN = "X-XSRF-TOKEN";
+
     @Autowired
     private DataSource dataSource;
 
@@ -35,7 +38,51 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/").permitAll();
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.httpBasic()
+            .and().authorizeRequests()
+            .antMatchers("/css/**", "/i18n/**", "/js/**").permitAll()
+            .antMatchers("/*.html", "/").permitAll()
+            .anyRequest().authenticated()
+
+            .and().formLogin().loginPage("/login").permitAll()
+            .and().logout()
+
+            .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+            .csrf().csrfTokenRepository(csrfTokenRepository());
+    }
+
+    private CsrfTokenRepository csrfTokenRepository()
+    {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName(X_XSRF_TOKEN);
+        return repository;
+    }
+
+    private static class CsrfHeaderFilter extends OncePerRequestFilter
+    {
+        @Override
+        protected void doFilterInternal(HttpServletRequest request,
+            HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException
+        {
+            CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class
+                .getName());
+
+            if (csrf != null)
+            {
+                Cookie cookie = WebUtils.getCookie(request, XSRF_TOKEN);
+                String token = csrf.getToken();
+                if (cookie == null || token != null && !token.equals(cookie.getValue()))
+                {
+                    cookie = new Cookie(XSRF_TOKEN, token);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                }
+            }
+
+            filterChain.doFilter(request, response);
+        }
     }
 }

@@ -9,10 +9,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 import javax.annotation.PostConstruct;
 
-@SpringBootApplication(scanBasePackages =
-    {
-        "quebec.virtualite.*"
-    })
+@SpringBootApplication(scanBasePackages = {"quebec.virtualite.*"})
 public class Application extends SpringBootServletInitializer
 {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
