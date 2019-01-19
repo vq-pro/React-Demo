@@ -2,13 +2,25 @@ package quebec.virtualite.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 @Service
 public class SecurityUserManager
 {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private PasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    public void init()
+    {
+        passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
     public void defineUser(String username, String password)
     {
@@ -17,11 +29,14 @@ public class SecurityUserManager
 
         jdbcTemplate.update(
             "INSERT INTO users (username, password, enabled)"
-            + " VALUES (?, ?, TRUE)", username, password);
+            + " VALUES (?, ?, TRUE)",
+            username,
+            passwordEncoder.encode(password));
 
         jdbcTemplate.update(
             "INSERT INTO authorities (username, authority)"
-            + " VALUES (?, 'ROLE_USER')", username);
+            + " VALUES (?, 'ROLE_USER')",
+            username);
     }
 
     private boolean doesUserExist(String username)

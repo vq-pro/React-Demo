@@ -22,7 +22,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 public class RestServerSteps
 {
     private static final String TEST_USER = "pat";
-    private static final String TEST_PASSWORD = "123456";
+    private static final String TEST_PASSWORD = "{sha256}123456";
 
     @Autowired
     private Environment environment;

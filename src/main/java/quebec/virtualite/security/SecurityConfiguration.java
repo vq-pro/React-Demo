@@ -25,8 +25,8 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
-    public static final String XSRF_TOKEN = "XSRF-TOKEN";
-    public static final String X_XSRF_TOKEN = "X-XSRF-TOKEN";
+    private static final String XSRF_TOKEN = "XSRF-TOKEN";
+    private static final String X_XSRF_TOKEN = "X-XSRF-TOKEN";
 
     @Autowired
     private DataSource dataSource;
