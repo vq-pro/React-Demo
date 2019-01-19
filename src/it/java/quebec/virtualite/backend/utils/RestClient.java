@@ -1,11 +1,11 @@
 package quebec.virtualite.backend.utils;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.ResponseSpecification;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSender;
 import org.springframework.stereotype.Component;
 
-import static com.jayway.restassured.RestAssured.given;
+import static io.restassured.RestAssured.given;
 
 @Component
 public class RestClient
@@ -59,7 +59,7 @@ public class RestClient
         password = "";
     }
 
-    private ResponseSpecification request()
+    private RequestSender request()
     {
         return given()
             .auth().basic(username, password)
