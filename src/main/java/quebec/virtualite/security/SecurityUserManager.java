@@ -17,7 +17,7 @@ public class SecurityUserManager
     private PasswordEncoder passwordEncoder;
 
     @PostConstruct
-    public void init()
+    public void _init()
     {
         passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }

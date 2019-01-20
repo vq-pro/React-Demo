@@ -21,8 +21,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ContextConfiguration
 public class RestServerSteps
 {
-    private static final String TEST_USER = "pat";
-    private static final String TEST_PASSWORD = "{sha256}123456";
+    private static final String TEST_USER = "some_user";
+    private static final String TEST_PASSWORD = "some_password";
 
     @Autowired
     private Environment environment;
@@ -39,7 +39,7 @@ public class RestServerSteps
         userManager.defineUser(TEST_USER, TEST_PASSWORD);
 
         int serverPort = Integer.valueOf(environment.getProperty("local.server.port"));
-        rest.init(serverPort);
+        rest._init(serverPort);
     }
 
     @Given("^we are logged in$")

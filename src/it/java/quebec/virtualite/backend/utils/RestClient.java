@@ -17,15 +17,15 @@ public class RestClient
     private String username;
     private String password;
 
-    public void get(String url)
-    {
-        response = request().get(url);
-    }
-
-    public void init(int serverPort)
+    public void _init(int serverPort)
     {
         RestAssured.port = serverPort;
         clearUser();
+    }
+
+    public void get(String url)
+    {
+        response = request().get(url);
     }
 
     public void login(String username, String password)
