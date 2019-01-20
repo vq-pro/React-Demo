@@ -2,5 +2,5 @@ package quebec.virtualite.backend.domain;
 
 public class Greeting
 {
-    public String content;
+    public String name;
 }

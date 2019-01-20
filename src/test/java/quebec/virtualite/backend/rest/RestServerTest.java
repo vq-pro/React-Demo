@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
-import quebec.virtualite.backend.domain.Greeting;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -21,7 +20,7 @@ public class RestServerTest
     public void getGreeting()
     {
         // When
-        Greeting greeting = server.greet(NAME);
+        GreetingResponse greeting = server.greet(NAME);
 
         // Then
         assertThat(greeting.content, is("Hello " + NAME + "!"));

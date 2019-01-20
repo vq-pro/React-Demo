@@ -10,9 +10,9 @@ Feature: Backend demo
           "content": "Hello Patrick!"
         }
       """
-#    And we have a record of greetings for:
-#      | Name    |
-#      | Patrick |
+    And we should have a record of greetings for:
+      | Name    |
+      | Patrick |
 
   Scenario: Get Greeting - Without login
     Given we are not logged in

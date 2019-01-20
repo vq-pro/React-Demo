@@ -1,5 +1,6 @@
 package quebec.virtualite.backend.rest;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -7,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
+import quebec.virtualite.backend.domain.Greeting;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -22,6 +28,8 @@ import static quebec.virtualite.backend.Application.TEST_USER;
 @ContextConfiguration
 public class RestServerSteps
 {
+    private static final String[] GREETINGS_LIST_HEADER = {"Name"};
+
     @Autowired
     private Environment environment;
 
@@ -65,5 +73,31 @@ public class RestServerSteps
     public void weShouldGetAnError(int errorCode)
     {
         assertThat(rest.response().statusCode(), is(errorCode));
+    }
+
+    @Then("^we should have a record of greetings for:$")
+    public void weShouldHaveARecordOfGreetingsFor(DataTable expectedGreetings)
+    {
+        expectedGreetings.diff(actualGreetings());
+    }
+
+    private DataTable actualGreetings()
+    {
+        // FIXME0 Read actual list from DB
+        Greeting greeting = new Greeting();
+        greeting.name = "Patrick";
+
+        return greetingsTable(singletonList(greeting));
+    }
+
+    private DataTable greetingsTable(List<Greeting> greetings)
+    {
+        List<List<String>> raw = new ArrayList<>();
+        raw.add(asList(GREETINGS_LIST_HEADER));
+
+        greetings.forEach(greeting ->
+            raw.add(singletonList(greeting.name)));
+
+        return DataTable.create(raw);
     }
 }
