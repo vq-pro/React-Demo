@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import quebec.virtualite.backend.utils.RestClient;
-import quebec.virtualite.security.SecurityUserManager;
 
 import javax.annotation.PostConstruct;
 
@@ -16,28 +15,22 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static quebec.virtualite.backend.Application.TEST_PASSWORD;
+import static quebec.virtualite.backend.Application.TEST_USER;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ContextConfiguration
 public class RestServerSteps
 {
-    private static final String TEST_USER = "some_user";
-    private static final String TEST_PASSWORD = "some_password";
-
     @Autowired
     private Environment environment;
 
     @Autowired
     private RestClient rest;
 
-    @Autowired
-    private SecurityUserManager userManager;
-
     @PostConstruct
     public void _init()
     {
-        userManager.defineUser(TEST_USER, TEST_PASSWORD);
-
         int serverPort = Integer.valueOf(environment.getProperty("local.server.port"));
         rest._init(serverPort);
     }
