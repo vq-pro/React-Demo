@@ -3,10 +3,13 @@ package quebec.virtualite.backend.rest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import quebec.virtualite.backend.data.Database;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RestServerTest
@@ -16,6 +19,9 @@ public class RestServerTest
     @InjectMocks
     private RestServer server;
 
+    @Mock
+    private Database mockedDatabase;
+
     @Test
     public void getGreeting()
     {
@@ -23,6 +29,8 @@ public class RestServerTest
         GreetingResponse greeting = server.greet(NAME);
 
         // Then
+        verify(mockedDatabase).recordGreet(NAME);
+
         assertThat(greeting.content, is("Hello " + NAME + "!"));
     }
 }

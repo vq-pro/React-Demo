@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
+import quebec.virtualite.backend.data.Database;
 import quebec.virtualite.backend.domain.Greeting;
 import quebec.virtualite.backend.utils.RestClient;
 
@@ -29,6 +30,9 @@ import static quebec.virtualite.backend.Application.TEST_USER;
 public class RestServerSteps
 {
     private static final String[] GREETINGS_LIST_HEADER = {"Name"};
+
+    @Autowired
+    private Database db;
 
     @Autowired
     private Environment environment;
@@ -83,11 +87,7 @@ public class RestServerSteps
 
     private DataTable actualGreetings()
     {
-        // FIXME0 Read actual list from DB
-        Greeting greeting = new Greeting();
-        greeting.name = "Patrick";
-
-        return greetingsTable(singletonList(greeting));
+        return greetingsTable(db.getGreetings());
     }
 
     private DataTable greetingsTable(List<Greeting> greetings)

@@ -19,3 +19,12 @@ CREATE TABLE authorities
   UNIQUE (authority, username),
   FOREIGN KEY (username) REFERENCES users (username)
 );
+
+CREATE TABLE greetings
+(
+  id       SERIAL UNIQUE,
+  name     VARCHAR(45) UNIQUE NOT NULL,
+
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
