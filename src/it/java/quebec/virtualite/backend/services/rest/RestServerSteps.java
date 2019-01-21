@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
-import quebec.virtualite.backend.services.data.Database;
-import quebec.virtualite.backend.services.domain.Greeting;
+import quebec.virtualite.backend.services.domain.Domain;
+import quebec.virtualite.backend.services.domain.entities.Greeting;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;
@@ -32,7 +32,7 @@ public class RestServerSteps
     private static final String[] GREETINGS_LIST_HEADER = {"Name"};
 
     @Autowired
-    private Database db;
+    private Domain domain;
 
     @Autowired
     private Environment environment;
@@ -87,7 +87,7 @@ public class RestServerSteps
 
     private DataTable actualGreetings()
     {
-        return greetingsTable(db.getGreetings());
+        return greetingsTable(domain.getGreetings());
     }
 
     private DataTable greetingsTable(List<Greeting> greetings)

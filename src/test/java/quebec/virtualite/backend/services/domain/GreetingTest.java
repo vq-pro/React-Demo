@@ -1,13 +1,14 @@
 package quebec.virtualite.backend.services.domain;
 
 import org.junit.Test;
+import quebec.virtualite.backend.services.domain.entities.Greeting;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
-import static quebec.virtualite.backend.services.domain.GreetingBuilder.greeting;
+import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
 
 public class GreetingTest
 {

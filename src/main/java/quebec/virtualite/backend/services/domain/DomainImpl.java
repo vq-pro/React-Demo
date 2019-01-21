@@ -1,16 +1,17 @@
-package quebec.virtualite.backend.services.data;
+package quebec.virtualite.backend.services.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import quebec.virtualite.backend.services.domain.Greeting;
+import quebec.virtualite.backend.services.domain.database.GreetingRepository;
+import quebec.virtualite.backend.services.domain.entities.Greeting;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static quebec.virtualite.backend.services.domain.GreetingBuilder.greeting;
+import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
 
 @Service
-public class DatabaseImpl implements Database
+public class DomainImpl implements Domain
 {
     @Autowired
     private GreetingRepository greetingRepository;

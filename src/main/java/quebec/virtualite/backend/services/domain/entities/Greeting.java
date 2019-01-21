@@ -1,4 +1,4 @@
-package quebec.virtualite.backend.services.domain;
+package quebec.virtualite.backend.services.domain.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

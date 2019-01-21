@@ -1,8 +1,8 @@
-package quebec.virtualite.backend.services.data;
+package quebec.virtualite.backend.services.domain.database;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import quebec.virtualite.backend.services.domain.Greeting;
+import quebec.virtualite.backend.services.domain.entities.Greeting;
 
 import java.util.Optional;
 

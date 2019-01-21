@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import quebec.virtualite.backend.services.data.Database;
+import quebec.virtualite.backend.services.domain.Domain;
 
 import static java.lang.String.format;
 
@@ -12,12 +12,12 @@ import static java.lang.String.format;
 public class RestServer
 {
     @Autowired
-    private Database db;
+    private Domain domain;
 
     @GetMapping("/greeting/{name}")
     public GreetingResponse greet(@PathVariable String name)
     {
-        db.recordGreeting(name);
+        domain.recordGreeting(name);
 
         GreetingResponse greeting = new GreetingResponse();
         greeting.content = format("Hello %s!", name);

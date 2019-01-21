@@ -1,11 +1,12 @@
-package quebec.virtualite.backend.services.data;
+package quebec.virtualite.backend.services.domain;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import quebec.virtualite.backend.services.domain.Greeting;
+import quebec.virtualite.backend.services.domain.database.GreetingRepository;
+import quebec.virtualite.backend.services.domain.entities.Greeting;
 
 import java.util.List;
 
@@ -13,15 +14,15 @@ import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
-import static quebec.virtualite.backend.services.domain.GreetingBuilder.greeting;
+import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DatabaseImplTest
+public class DomainImplTest
 {
     private static final String NAME = "name";
 
     @InjectMocks
-    private Database db = new DatabaseImpl();
+    private Domain domain = new DomainImpl();
 
     @Mock
     private GreetingRepository mockedGreetingRepository;
@@ -30,7 +31,7 @@ public class DatabaseImplTest
     public void getGreetings()
     {
         // When
-        List<Greeting> greetings = db.getGreetings();
+        List<Greeting> greetings = domain.getGreetings();
 
         // Then
         verify(mockedGreetingRepository).findAll();
@@ -42,7 +43,7 @@ public class DatabaseImplTest
     public void recordGreeting()
     {
         // When
-        db.recordGreeting(NAME);
+        domain.recordGreeting(NAME);
 
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
