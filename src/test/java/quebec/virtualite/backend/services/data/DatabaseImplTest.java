@@ -5,9 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import quebec.virtualite.backend.services.data.Database;
-import quebec.virtualite.backend.services.data.DatabaseImpl;
-import quebec.virtualite.backend.services.data.GreetingRepository;
 import quebec.virtualite.backend.services.domain.Greeting;
 
 import java.util.List;
@@ -48,6 +45,7 @@ public class DatabaseImplTest
         db.recordGreet(NAME);
 
         // Then
+        verify(mockedGreetingRepository).findByName(NAME);
         verify(mockedGreetingRepository).save(greeting(NAME));
     }
 }

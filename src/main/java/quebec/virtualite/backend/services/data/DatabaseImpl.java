@@ -24,7 +24,10 @@ public class DatabaseImpl implements Database
     @Override
     public void recordGreet(String name)
     {
-        greetingRepository.save(greeting(name));
+        Greeting greeting = greetingRepository.findByName(name)
+            .orElse(greeting(name));
+
+        greetingRepository.save(greeting);
     }
 
     private <T> List<T> list(Iterable<T> iterable)
