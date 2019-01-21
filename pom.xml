@@ -31,7 +31,7 @@
         <spring-security-test.version>5.1.3.RELEASE</spring-security-test.version>
         <spring-test.version>5.1.4.RELEASE</spring-test.version>
 
-        <start-class>quebec.virtualite.Backend-Demo.Application</start-class>
+        <start-class>quebec.virtualite.backend.Application</start-class>
 
         <!--Backend-->
         <flyway.version>5.2.4</flyway.version>

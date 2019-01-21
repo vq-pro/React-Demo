@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import quebec.virtualite.security.SecurityUserManager;
+import quebec.virtualite.backend.security.SecurityUserManager;
 
 import javax.annotation.PostConstruct;
 

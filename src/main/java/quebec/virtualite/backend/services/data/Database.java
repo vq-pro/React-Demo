@@ -1,6 +1,6 @@
-package quebec.virtualite.backend.data;
+package quebec.virtualite.backend.services.data;
 
-import quebec.virtualite.backend.domain.Greeting;
+import quebec.virtualite.backend.services.domain.Greeting;
 
 import java.util.List;
 

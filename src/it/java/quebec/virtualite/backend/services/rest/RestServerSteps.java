@@ -1,4 +1,4 @@
-package quebec.virtualite.backend.rest;
+package quebec.virtualite.backend.services.rest;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
-import quebec.virtualite.backend.data.Database;
-import quebec.virtualite.backend.domain.Greeting;
+import quebec.virtualite.backend.services.data.Database;
+import quebec.virtualite.backend.services.domain.Greeting;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;

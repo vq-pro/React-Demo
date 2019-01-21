@@ -1,11 +1,14 @@
-package quebec.virtualite.backend.data;
+package quebec.virtualite.backend.services.data;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import quebec.virtualite.backend.domain.Greeting;
+import quebec.virtualite.backend.services.data.Database;
+import quebec.virtualite.backend.services.data.DatabaseImpl;
+import quebec.virtualite.backend.services.data.GreetingRepository;
+import quebec.virtualite.backend.services.domain.Greeting;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
-import static quebec.virtualite.backend.domain.GreetingBuilder.greeting;
+import static quebec.virtualite.backend.services.domain.GreetingBuilder.greeting;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DatabaseImplTest

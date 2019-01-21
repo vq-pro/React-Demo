@@ -1,4 +1,4 @@
-package quebec.virtualite.backend.rest;
+package quebec.virtualite.backend.services.rest;
 
 public class GreetingResponse
 {
