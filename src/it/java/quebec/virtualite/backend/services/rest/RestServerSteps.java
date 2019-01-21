@@ -96,7 +96,7 @@ public class RestServerSteps
         raw.add(asList(GREETINGS_LIST_HEADER));
 
         greetings.forEach(greeting ->
-            raw.add(singletonList(greeting.name)));
+            raw.add(singletonList(greeting.getName())));
 
         return DataTable.create(raw);
     }

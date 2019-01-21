@@ -19,7 +19,7 @@ public class Greeting
     private long id;
 
     @Column
-    public String name;
+    private String name;
 
     @Override
     public boolean equals(Object that)
@@ -31,5 +31,21 @@ public class Greeting
     public int hashCode()
     {
         return reflectionHashCode(this);
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public Greeting setName(String name)
+    {
+        this.name = name;
+        return this;
     }
 }
