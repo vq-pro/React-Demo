@@ -19,16 +19,6 @@ spring.jpa:
 # Server
 server:
   port: 8080
-  sessionTimeout: 30
-
-# Tomcat
-tomcat:
-  accessLogEnabled: false
-  protocolHeader: x-forwarded-proto
-  remoteIpHeader: x-forwarded-for
-  backgroundProcessorDelay: 30
-
-# === Backend ===
 
 # H2 Database
 spring:
