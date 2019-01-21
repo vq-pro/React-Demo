@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface Domain
 {
+    void deleteGreetings();
+
     List<Greeting> getGreetings();
 
     void recordGreeting(String name);

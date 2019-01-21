@@ -17,6 +17,12 @@ public class DomainImpl implements Domain
     private GreetingRepository greetingRepository;
 
     @Override
+    public void deleteGreetings()
+    {
+        greetingRepository.deleteAll();
+    }
+
+    @Override
     public List<Greeting> getGreetings()
     {
         return list(greetingRepository.findAll());

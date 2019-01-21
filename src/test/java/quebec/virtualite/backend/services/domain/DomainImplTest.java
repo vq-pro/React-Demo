@@ -28,6 +28,16 @@ public class DomainImplTest
     private GreetingRepository mockedGreetingRepository;
 
     @Test
+    public void deleteGreetings()
+    {
+        // When
+        domain.deleteGreetings();
+
+        // Then
+        verify(mockedGreetingRepository).deleteAll();
+    }
+
+    @Test
     public void getGreetings()
     {
         // When
