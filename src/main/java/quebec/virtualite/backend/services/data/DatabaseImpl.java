@@ -22,7 +22,7 @@ public class DatabaseImpl implements Database
     }
 
     @Override
-    public void recordGreet(String name)
+    public void recordGreeting(String name)
     {
         Greeting greeting = greetingRepository.findByName(name)
             .orElse(greeting(name));

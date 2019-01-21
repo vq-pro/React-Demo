@@ -17,7 +17,7 @@ public class RestServer
     @GetMapping("/greeting/{name}")
     public GreetingResponse greet(@PathVariable String name)
     {
-        db.recordGreet(name);
+        db.recordGreeting(name);
 
         GreetingResponse greeting = new GreetingResponse();
         greeting.content = format("Hello %s!", name);

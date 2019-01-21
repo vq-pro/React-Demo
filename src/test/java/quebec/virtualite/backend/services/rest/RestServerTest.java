@@ -6,8 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import quebec.virtualite.backend.services.data.Database;
-import quebec.virtualite.backend.services.rest.GreetingResponse;
-import quebec.virtualite.backend.services.rest.RestServer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -31,7 +29,7 @@ public class RestServerTest
         GreetingResponse greeting = server.greet(NAME);
 
         // Then
-        verify(mockedDatabase).recordGreet(NAME);
+        verify(mockedDatabase).recordGreeting(NAME);
 
         assertThat(greeting.content, is("Hello " + NAME + "!"));
     }

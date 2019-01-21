@@ -8,5 +8,5 @@ public interface Database
 {
     List<Greeting> getGreetings();
 
-    void recordGreet(String name);
+    void recordGreeting(String name);
 }

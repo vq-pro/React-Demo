@@ -42,7 +42,7 @@ public class DatabaseImplTest
     public void recordGreeting()
     {
         // When
-        db.recordGreet(NAME);
+        db.recordGreeting(NAME);
 
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
