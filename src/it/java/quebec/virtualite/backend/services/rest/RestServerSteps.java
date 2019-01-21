@@ -20,6 +20,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static quebec.virtualite.backend.Application.TEST_PASSWORD;
@@ -43,8 +45,7 @@ public class RestServerSteps
     @PostConstruct
     public void _init()
     {
-        int serverPort = Integer.valueOf(environment.getProperty("local.server.port"));
-        rest._init(serverPort);
+        rest._init(getServerPort());
     }
 
     @Given("^we are logged in$")
@@ -88,6 +89,14 @@ public class RestServerSteps
     private DataTable actualGreetings()
     {
         return greetingsTable(domain.getGreetings());
+    }
+
+    private int getServerPort()
+    {
+        String serverPort = environment.getProperty("local.server.port");
+        assertThat(serverPort, not(nullValue()));
+
+        return Integer.valueOf(serverPort);
     }
 
     private DataTable greetingsTable(List<Greeting> greetings)
