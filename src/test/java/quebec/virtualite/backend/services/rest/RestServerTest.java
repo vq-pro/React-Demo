@@ -23,7 +23,7 @@ public class RestServerTest
     private Domain mockedDomain;
 
     @Test
-    public void getGreeting()
+    public void greet()
     {
         // When
         GreetingResponse greeting = server.greet(NAME);
