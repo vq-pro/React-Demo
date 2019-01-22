@@ -3,7 +3,7 @@ Feature: Backend demo
 
   Scenario: Get greeting
     Given we are logged in
-    When we ask for a greeting for "Toto" [GET "/v1/greeting/{name}"]
+    When we ask for a greeting for "Toto" [POST "/v1/greetings/{name}"]
     Then we get a greeting message
       """
         {
@@ -16,5 +16,5 @@ Feature: Backend demo
 
   Scenario: Get greeting when not logged in
     Given we are not logged in
-    When we ask for a greeting for "Toto" [GET "/v1/greeting/{name}"]
+    When we ask for a greeting for "Toto" [POST "/v1/greetings/{name}"]
     Then we should get a 401 error

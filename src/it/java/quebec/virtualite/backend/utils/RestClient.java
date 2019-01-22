@@ -6,11 +6,14 @@ import io.restassured.specification.RequestSender;
 import org.springframework.stereotype.Component;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
 
 @Component
 public class RestClient
 {
     private static final char NON_BREAKING_SPACE = (char) 0x00A0;
+    private static final String XSRF_TOKEN = "XSRF-TOKEN";
+    private static final String X_XSRF_TOKEN = "X-XSRF-TOKEN";
 
     private Response response;
 
@@ -25,7 +28,7 @@ public class RestClient
 
     public void get(String url)
     {
-        response = request().get(url);
+        response = requestForRead().get(url);
     }
 
     public void login(String username, String password)
@@ -37,6 +40,12 @@ public class RestClient
     public void logout()
     {
         clearUser();
+    }
+
+    public void post(String url)
+    {
+        response = requestForWrite()
+            .post(url);
     }
 
     public Response response()
@@ -59,10 +68,40 @@ public class RestClient
         password = "";
     }
 
-    private RequestSender request()
+    private String getJSessionID()
     {
         return given()
             .auth().basic(username, password)
+            .get("/user")
+            .getSessionId();
+    }
+
+    private String getToken(String jSessionID)
+    {
+        return given()
+            .sessionId(jSessionID)
+            .contentType(JSON)
+            .get("/user")
+            .cookie(XSRF_TOKEN);
+    }
+
+    private RequestSender requestForRead()
+    {
+        return given()
+            .auth().basic(username, password)
+            .expect()
+            .when();
+    }
+
+    private RequestSender requestForWrite()
+    {
+        String jSessionID = getJSessionID();
+        String token = getToken(jSessionID);
+
+        return given()
+            .sessionId(jSessionID)
+            .header(X_XSRF_TOKEN, token)
+            .contentType(JSON)
             .expect()
             .when();
     }
