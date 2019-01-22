@@ -6,8 +6,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import quebec.virtualite.backend.services.domain.Domain;
 import quebec.virtualite.backend.services.domain.entities.Greeting;
@@ -21,8 +21,6 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static quebec.virtualite.backend.Application.TEST_PASSWORD;
@@ -38,15 +36,15 @@ public class RestServerSteps
     private Domain domain;
 
     @Autowired
-    private Environment environment;
-
-    @Autowired
     private RestClient rest;
+
+    @Value("${local.server.port}")
+    private int serverPort;
 
     @PostConstruct
     public void _init()
     {
-        rest._init(getServerPort());
+        rest._init(serverPort);
     }
 
     @Before
@@ -96,14 +94,6 @@ public class RestServerSteps
     private DataTable actualGreetings()
     {
         return greetingsTable(domain.getGreetings());
-    }
-
-    private int getServerPort()
-    {
-        String serverPort = environment.getProperty("local.server.port");
-        assertThat(serverPort, not(nullValue()));
-
-        return Integer.valueOf(serverPort);
     }
 
     private DataTable greetingsTable(List<Greeting> greetings)
