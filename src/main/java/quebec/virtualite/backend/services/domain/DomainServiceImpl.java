@@ -11,7 +11,7 @@ import java.util.List;
 import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
 
 @Service
-public class DomainImpl implements Domain
+public class DomainServiceImpl implements DomainService
 {
     @Autowired
     private GreetingRepository greetingRepository;

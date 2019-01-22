@@ -4,7 +4,7 @@ import quebec.virtualite.backend.services.domain.entities.Greeting;
 
 import java.util.List;
 
-public interface Domain
+public interface DomainService
 {
     void deleteGreetings();
 

@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import quebec.virtualite.backend.services.domain.Domain;
+import quebec.virtualite.backend.services.domain.DomainService;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -20,7 +20,7 @@ public class RestServerTest
     private RestServer server;
 
     @Mock
-    private Domain mockedDomain;
+    private DomainService mockedDomainService;
 
     @Test
     public void greet()
@@ -29,7 +29,7 @@ public class RestServerTest
         GreetingResponse greeting = server.greet(NAME);
 
         // Then
-        verify(mockedDomain).recordGreeting(NAME);
+        verify(mockedDomainService).recordGreeting(NAME);
 
         assertThat(greeting.content, is("Hello " + NAME + "!"));
     }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import quebec.virtualite.backend.services.domain.Domain;
+import quebec.virtualite.backend.services.domain.DomainService;
 import quebec.virtualite.backend.services.domain.entities.Greeting;
 import quebec.virtualite.backend.utils.RestClient;
 
@@ -33,7 +33,7 @@ public class RestServerSteps
     private static final String[] GREETINGS_LIST_HEADER = {"Name"};
 
     @Autowired
-    private Domain domain;
+    private DomainService domainService;
 
     @Autowired
     private RestClient rest;
@@ -50,7 +50,7 @@ public class RestServerSteps
     @Before
     public void beforeEachScenario()
     {
-        domain.deleteGreetings();
+        domainService.deleteGreetings();
     }
 
     @Given("^we are logged in$")
@@ -93,7 +93,7 @@ public class RestServerSteps
 
     private DataTable actualGreetings()
     {
-        return greetingsTable(domain.getGreetings());
+        return greetingsTable(domainService.getGreetings());
     }
 
     private DataTable greetingsTable(List<Greeting> greetings)

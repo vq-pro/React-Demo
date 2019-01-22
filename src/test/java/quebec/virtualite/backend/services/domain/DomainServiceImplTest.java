@@ -17,12 +17,12 @@ import static org.mockito.Mockito.verify;
 import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DomainImplTest
+public class DomainServiceImplTest
 {
     private static final String NAME = "name";
 
     @InjectMocks
-    private Domain domain = new DomainImpl();
+    private DomainService domainService = new DomainServiceImpl();
 
     @Mock
     private GreetingRepository mockedGreetingRepository;
@@ -31,7 +31,7 @@ public class DomainImplTest
     public void deleteGreetings()
     {
         // When
-        domain.deleteGreetings();
+        domainService.deleteGreetings();
 
         // Then
         verify(mockedGreetingRepository).deleteAll();
@@ -41,7 +41,7 @@ public class DomainImplTest
     public void getGreetings()
     {
         // When
-        List<Greeting> greetings = domain.getGreetings();
+        List<Greeting> greetings = domainService.getGreetings();
 
         // Then
         verify(mockedGreetingRepository).findAll();
@@ -53,7 +53,7 @@ public class DomainImplTest
     public void recordGreeting()
     {
         // When
-        domain.recordGreeting(NAME);
+        domainService.recordGreeting(NAME);
 
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
