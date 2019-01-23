@@ -25,6 +25,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static quebec.virtualite.backend.Application.TEST_PASSWORD;
 import static quebec.virtualite.backend.Application.TEST_USER;
+import static quebec.virtualite.backend.utils.RestParam.param;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ContextConfiguration
@@ -66,10 +67,9 @@ public class RestServerSteps
     }
 
     @When("^we ask for a greeting for \"([^\"]*)\" \\[POST \"([^\"]*)\"\\]$")
-    public void weAskForAGreetingFor(String name, String url)
+    public void weAskForAGreetingFor(String nameValue, String url)
     {
-        rest.post(url
-            .replace("{name}", name));
+        rest.post(url, param("name", nameValue));
     }
 
     @Then("^we get a greeting message$")

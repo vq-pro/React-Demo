@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThat;
 
 @Component
 public class RestClient
@@ -42,8 +44,10 @@ public class RestClient
         clearUser();
     }
 
-    public void post(String url)
+    public void post(String url, RestParam param)
     {
+        url = setParam(url, param);
+
         response = requestForWrite()
             .post(url);
     }
@@ -104,5 +108,13 @@ public class RestClient
             .contentType(JSON)
             .expect()
             .when();
+    }
+
+    private String setParam(String url, RestParam param)
+    {
+        String paramName = "{" + param.key + "}";
+        assertThat("Error in URL", url, containsString(paramName));
+
+        return url.replace(paramName, String.valueOf(param.value));
     }
 }
