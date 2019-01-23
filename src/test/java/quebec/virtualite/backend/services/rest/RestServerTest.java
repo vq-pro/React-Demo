@@ -26,11 +26,11 @@ public class RestServerTest
     public void greet()
     {
         // When
-        GreetingResponse greeting = server.greet(NAME);
+        GreetingResponse response = server.greet(NAME);
 
         // Then
         verify(mockedDomainService).recordGreeting(NAME);
 
-        assertThat(greeting.content, is("Hello " + NAME + "!"));
+        assertThat(response.content, is("Hello " + NAME + "!"));
     }
 }
