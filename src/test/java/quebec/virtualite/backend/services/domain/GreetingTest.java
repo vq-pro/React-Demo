@@ -3,6 +3,7 @@ package quebec.virtualite.backend.services.domain;
 import org.junit.Test;
 import quebec.virtualite.backend.services.domain.entities.Greeting;
 
+import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
@@ -36,5 +37,11 @@ public class GreetingTest
     public void hashCode_()
     {
         assertThat(greeting("a").hashCode(), not(0));
+    }
+
+    @Test
+    public void toString_()
+    {
+        assertThat(greeting("a"), hasToString("Greeting[id=0,name=a]"));
     }
 }
