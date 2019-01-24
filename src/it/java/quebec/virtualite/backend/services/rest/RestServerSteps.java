@@ -34,10 +34,10 @@ public class RestServerSteps
     private static final String[] GREETINGS_LIST_HEADER = {"Name"};
 
     @Autowired
-    private DomainService domainService;
+    public DomainService domainService;
 
     @Autowired
-    private RestClient rest;
+    public RestClient rest;
 
     @Value("${local.server.port}")
     private int serverPort;
