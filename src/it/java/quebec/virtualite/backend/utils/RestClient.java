@@ -2,13 +2,14 @@ package quebec.virtualite.backend.utils;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSender;
+import io.restassured.specification.RequestSpecification;
 import org.springframework.stereotype.Component;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
+import static org.springframework.util.StringUtils.isEmpty;
 
 @Component
 public class RestClient
@@ -32,7 +33,8 @@ public class RestClient
     {
         url = setParam(url, param);
 
-        response = requestForRead().get(url);
+        response = requestForReads()
+            .get(url);
     }
 
     public void login(String username, String password)
@@ -50,7 +52,8 @@ public class RestClient
     {
         url = setParam(url, param);
 
-        response = requestForWrite()
+        response = requestForWrites()
+            .contentType(JSON)
             .post(url);
     }
 
@@ -91,27 +94,32 @@ public class RestClient
             .cookie(XSRF_TOKEN);
     }
 
-    private RequestSender requestForRead()
+    private boolean notIsLoggedIn()
     {
-        // FIXME1 Cleaner check for logged-in or not
-        return given()
-            .auth().basic(username, password)
-            .expect()
-            .when();
+        return isEmpty(username) ||isEmpty(password);
     }
 
-    private RequestSender requestForWrite()
+    private RequestSpecification requestForReads()
     {
-        // FIXME1 Cleaner check for logged-in or not
+        if (notIsLoggedIn())
+            return given();
+
+        return given()
+            .auth()
+            .basic(username, password);
+    }
+
+    private RequestSpecification requestForWrites()
+    {
+        if (notIsLoggedIn())
+            return given();
+
         String jSessionID = getJSessionID();
         String token = getToken(jSessionID);
 
         return given()
             .sessionId(jSessionID)
-            .header(X_XSRF_TOKEN, token)
-            .contentType(JSON)
-            .expect()
-            .when();
+            .header(X_XSRF_TOKEN, token);
     }
 
     private String setParam(String url, RestParam param)
