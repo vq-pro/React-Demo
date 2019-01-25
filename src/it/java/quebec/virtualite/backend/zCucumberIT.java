@@ -20,6 +20,6 @@ import static cucumber.api.SnippetType.CAMELCASE;
         snippets = CAMELCASE,
         tags = "~@Ignore"
     )
-public class CucumberIT
+public class zCucumberIT
 {
 }

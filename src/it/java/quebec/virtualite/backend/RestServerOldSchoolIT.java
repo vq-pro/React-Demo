@@ -23,7 +23,7 @@ import static quebec.virtualite.backend.utils.RestParam.param;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ContextConfiguration
 @RunWith(SpringRunner.class)
-public class RestServerIT
+public class RestServerOldSchoolIT
 {
     @Autowired
     private DomainService domainService;
@@ -44,64 +44,23 @@ public class RestServerIT
     @Test
     public void getGreeting()
     {
-        // Given
-        weAreLoggedIn();
+        rest.login(TEST_USER, TEST_PASSWORD);
+        rest.post("/v1/greetings/{name}", param("name", "Toto"));
 
-        // When
-        weAskForAGreetingFor("Toto", "/v1/greetings/{name}");
+        assertThat(rest.response().statusCode(), is(SC_OK));
+        assertThat(rest.response().asString(), is(
+            rest.trim("{" +
+                      "  \"content\": \"Hello Toto!\"" +
+                      "}")));
 
-        // Then
-        weGetAGreetingMessage
-            (
-                "{" +
-                "  \"content\": \"Hello Toto!\"" +
-                "}"
-            );
-        weShouldHaveARecordOfGreetingsFor("Toto");
+        assertThat(domainService.getGreetings(), hasSize(1));
+        assertThat(domainService.getGreetings().get(0).getName(), is("Toto"));
     }
 
     @Test
     public void getGreetingWhenNotLoggedIn()
     {
-        // Given
-        weAreNotLoggedIn();
-
-        // When
-        weAskForAGreetingFor("Toto", "/v1/greetings/{name}");
-
-        // Then
-        weShouldGetAnError(401);
-    }
-
-    private void weAreLoggedIn()
-    {
-        rest.login(TEST_USER, TEST_PASSWORD);
-    }
-
-    private void weAreNotLoggedIn()
-    {
-        // Do nothing
-    }
-
-    private void weAskForAGreetingFor(String nameValue, String url)
-    {
-        rest.post(url, param("name", nameValue));
-    }
-
-    private void weGetAGreetingMessage(String expectedJson)
-    {
-        assertThat(rest.response().statusCode(), is(SC_OK));
-        assertThat(rest.response().asString(), is(rest.trim(expectedJson)));
-    }
-
-    private void weShouldGetAnError(int errorCode)
-    {
-        assertThat(rest.response().statusCode(), is(errorCode));
-    }
-
-    private void weShouldHaveARecordOfGreetingsFor(String nameValue)
-    {
-        assertThat(domainService.getGreetings(), hasSize(1));
-        assertThat(domainService.getGreetings().get(0).getName(), is(nameValue));
+        rest.post("/v1/greetings/{name}", param("name", "Toto"));
+        assertThat(rest.response().statusCode(), is(401));
     }
 }
