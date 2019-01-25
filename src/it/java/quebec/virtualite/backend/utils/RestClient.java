@@ -93,6 +93,7 @@ public class RestClient
 
     private RequestSender requestForRead()
     {
+        // FIXME1 Cleaner check for logged-in or not
         return given()
             .auth().basic(username, password)
             .expect()
@@ -101,6 +102,7 @@ public class RestClient
 
     private RequestSender requestForWrite()
     {
+        // FIXME1 Cleaner check for logged-in or not
         String jSessionID = getJSessionID();
         String token = getToken(jSessionID);
 

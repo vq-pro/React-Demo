@@ -85,7 +85,7 @@ public class RestServerIT
 
     private void weAskForAGreetingFor(String nameValue, String url)
     {
-        rest.post(url, param("name", nameValue));
+        rest.get(url, param("name", nameValue));
     }
 
     private void weGetAGreetingMessage(String expectedJson)
