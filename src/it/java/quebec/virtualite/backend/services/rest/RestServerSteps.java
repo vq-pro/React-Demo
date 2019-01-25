@@ -98,7 +98,7 @@ public class RestServerSteps
 
     private DataTable greetingsTable(List<Greeting> greetings)
     {
-        List<List<String>> raw = new ArrayList<>();
+        List<List<Object>> raw = new ArrayList<>();
         raw.add(asList(GREETINGS_LIST_HEADER));
 
         greetings.forEach(greeting ->
