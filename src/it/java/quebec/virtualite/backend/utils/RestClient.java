@@ -28,8 +28,10 @@ public class RestClient
         clearUser();
     }
 
-    public void get(String url)
+    public void get(String url, RestParam param)
     {
+        url = setParam(url, param);
+
         response = requestForRead().get(url);
     }
 

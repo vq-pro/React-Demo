@@ -66,10 +66,10 @@ public class RestServerSteps
         // Nothing to do here
     }
 
-    @When("^we ask for a greeting for \"([^\"]*)\" \\[POST \"([^\"]*)\"\\]$")
+    @When("^we ask for a greeting for \"([^\"]*)\" \\[GET \"([^\"]*)\"\\]$")
     public void weAskForAGreetingFor(String nameValue, String url)
     {
-        rest.post(url, param("name", nameValue));
+        rest.get(url, param("name", nameValue));
     }
 
     @Then("^we get a greeting message$")
