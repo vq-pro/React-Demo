@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import quebec.virtualite.backend.services.domain.DomainService;
-import quebec.virtualite.backend.services.domain.entities.Greeting;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;
@@ -92,14 +91,12 @@ public class RestServerSteps
 
     private DataTable actualGreetings()
     {
-        List<Object> header = singletonList("Name");
-        List<Greeting> rows = domainService.getGreetings();
-
-        return dataTable(
-            header,
-            rows,
-            greeting ->
-                singletonList(greeting.getName()));
+        return dataTable
+        (
+            singletonList("Name"),
+            domainService.getGreetings(),
+            greeting -> singletonList(greeting.getName())
+        );
     }
 
     private <T> DataTable dataTable(
