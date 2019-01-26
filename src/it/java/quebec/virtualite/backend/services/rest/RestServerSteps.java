@@ -16,9 +16,10 @@ import quebec.virtualite.backend.utils.RestClient;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
-import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
+import static java.util.stream.Collectors.toList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -31,8 +32,6 @@ import static quebec.virtualite.backend.utils.RestParam.param;
 @ContextConfiguration
 public class RestServerSteps
 {
-    private static final String[] GREETINGS_LIST_HEADER = {"Name"};
-
     @Autowired
     private DomainService domainService;
 
@@ -93,16 +92,28 @@ public class RestServerSteps
 
     private DataTable actualGreetings()
     {
-        return greetingsTable(domainService.getGreetings());
+        List<Object> header = singletonList("Name");
+        List<Greeting> rows = domainService.getGreetings();
+
+        return dataTable(
+            header,
+            rows,
+            greeting ->
+                singletonList(greeting.getName()));
     }
 
-    private DataTable greetingsTable(List<Greeting> greetings)
+    private <T> DataTable dataTable(
+        List<Object> header,
+        List<T> rows,
+        Function<T, List<Object>> forEachRow)
     {
         List<List<Object>> raw = new ArrayList<>();
-        raw.add(asList(GREETINGS_LIST_HEADER));
 
-        greetings.forEach(greeting ->
-            raw.add(singletonList(greeting.getName())));
+        raw.add(header);
+        raw.addAll(rows
+            .stream()
+            .map(forEachRow)
+            .collect(toList()));
 
         return DataTable.create(raw);
     }
