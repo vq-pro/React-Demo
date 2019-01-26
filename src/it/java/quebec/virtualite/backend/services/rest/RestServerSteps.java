@@ -111,9 +111,7 @@ public class RestServerSteps
 
         raw.add(header);
         raw.addAll(rows
-            .stream()
-            .map(forEachRow)
-            .collect(toList()));
+            .stream().map(forEachRow).collect(toList()));
 
         return DataTable.create(raw);
     }
