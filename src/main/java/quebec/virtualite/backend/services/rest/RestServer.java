@@ -10,7 +10,7 @@ import quebec.virtualite.backend.services.domain.DomainService;
 import static java.lang.String.format;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v2")
 public class RestServer
 {
     @Autowired
