@@ -10,9 +10,6 @@ Feature: Backend demo
           "content": "Hello Toto!"
         }
       """
-    And we should have a record of greetings for:
-      | Name |
-      | Toto |
 
   Scenario: Get greeting when not logged in
     Given we are not logged in

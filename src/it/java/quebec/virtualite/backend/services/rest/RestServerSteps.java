@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
@@ -81,22 +80,6 @@ public class RestServerSteps
     public void weShouldGetAnError(int errorCode)
     {
         assertThat(rest.response().statusCode(), is(errorCode));
-    }
-
-    @Then("^we should have a record of greetings for:$")
-    public void weShouldHaveARecordOfGreetingsFor(DataTable expectedGreetings)
-    {
-        expectedGreetings.diff(actualGreetings());
-    }
-
-    private DataTable actualGreetings()
-    {
-        return dataTable
-        (
-            singletonList("Name"),
-            domainService.getGreetings(),
-            greeting -> singletonList(greeting.getName())
-        );
     }
 
     private <T> DataTable dataTable(
