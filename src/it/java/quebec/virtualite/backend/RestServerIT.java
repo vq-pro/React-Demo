@@ -48,7 +48,7 @@ public class RestServerIT
         weAreLoggedIn();
 
         // When
-        weAskForAGreetingFor("Toto", "/v1/greetings/{name}");
+        weAskForAGreetingFor("Toto", "/v2/greetings/{name}");
 
         // Then
         weGetAGreetingMessage
@@ -67,7 +67,7 @@ public class RestServerIT
         weAreNotLoggedIn();
 
         // When
-        weAskForAGreetingFor("Toto", "/v1/greetings/{name}");
+        weAskForAGreetingFor("Toto", "/v2/greetings/{name}");
 
         // Then
         weShouldGetAnError(401);

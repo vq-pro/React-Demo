@@ -1,6 +1,5 @@
 package quebec.virtualite.backend.services.rest;
 
-import cucumber.api.DataTable;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,11 +12,7 @@ import quebec.virtualite.backend.services.domain.DomainService;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
-import static java.util.stream.Collectors.toList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -80,19 +75,5 @@ public class RestServerSteps
     public void weShouldGetAnError(int errorCode)
     {
         assertThat(rest.response().statusCode(), is(errorCode));
-    }
-
-    private <T> DataTable dataTable(
-        List<Object> header,
-        List<T> rows,
-        Function<T, List<Object>> forEachRow)
-    {
-        List<List<Object>> raw = new ArrayList<>();
-
-        raw.add(header);
-        raw.addAll(rows
-            .stream().map(forEachRow).collect(toList()));
-
-        return DataTable.create(raw);
     }
 }

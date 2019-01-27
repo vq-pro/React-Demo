@@ -45,7 +45,7 @@ public class RestServerOldSchoolIT
     public void getGreeting()
     {
         rest.login(TEST_USER, TEST_PASSWORD);
-        rest.get("/v1/greetings/{name}", param("name", "Toto"));
+        rest.get("/v2/greetings/{name}", param("name", "Toto"));
 
         assertThat(rest.response().statusCode(), is(SC_OK));
         assertThat(rest.response().asString(), is(
@@ -60,7 +60,7 @@ public class RestServerOldSchoolIT
     @Test
     public void getGreetingWhenNotLoggedIn()
     {
-        rest.get("/v1/greetings/{name}", param("name", "Toto"));
+        rest.get("/v2/greetings/{name}", param("name", "Toto"));
         assertThat(rest.response().statusCode(), is(401));
     }
 }
