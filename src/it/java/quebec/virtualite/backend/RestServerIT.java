@@ -12,7 +12,6 @@ import quebec.virtualite.backend.services.domain.DomainService;
 import quebec.virtualite.backend.utils.RestClient;
 
 import static org.apache.http.HttpStatus.SC_OK;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -57,7 +56,6 @@ public class RestServerIT
                 "  \"content\": \"Hello Toto!\"" +
                 "}"
             );
-        weShouldHaveARecordOfGreetingsFor("Toto");
     }
 
     @Test
@@ -97,11 +95,5 @@ public class RestServerIT
     private void weShouldGetAnError(int errorCode)
     {
         assertThat(rest.response().statusCode(), is(errorCode));
-    }
-
-    private void weShouldHaveARecordOfGreetingsFor(String nameValue)
-    {
-        assertThat(domainService.getGreetings(), hasSize(1));
-        assertThat(domainService.getGreetings().get(0).getName(), is(nameValue));
     }
 }

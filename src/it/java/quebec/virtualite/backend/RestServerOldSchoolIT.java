@@ -12,7 +12,6 @@ import quebec.virtualite.backend.services.domain.DomainService;
 import quebec.virtualite.backend.utils.RestClient;
 
 import static org.apache.http.HttpStatus.SC_OK;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -52,9 +51,6 @@ public class RestServerOldSchoolIT
             rest.trim("{" +
                       "  \"content\": \"Hello Toto!\"" +
                       "}")));
-
-        assertThat(domainService.getGreetings(), hasSize(1));
-        assertThat(domainService.getGreetings().get(0).getName(), is("Toto"));
     }
 
     @Test
