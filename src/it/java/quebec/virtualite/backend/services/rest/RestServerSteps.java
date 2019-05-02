@@ -58,6 +58,9 @@ public class RestServerSteps
         // Nothing to do here
     }
 
+    /**
+     * Server Unit Test: {@link RestServerTest#greet()}
+     */
     @When("^we ask for a greeting for \"([^\"]*)\" \\[GET \"([^\"]*)\"\\]$")
     public void weAskForAGreetingFor(String nameValue, String url)
     {
