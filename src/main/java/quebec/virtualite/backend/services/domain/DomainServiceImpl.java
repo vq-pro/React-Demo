@@ -8,8 +8,6 @@ import quebec.virtualite.backend.services.domain.entities.Greeting;
 import java.util.ArrayList;
 import java.util.List;
 
-import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
-
 @Service
 public class DomainServiceImpl implements DomainService
 {
@@ -32,7 +30,7 @@ public class DomainServiceImpl implements DomainService
     public void recordGreeting(String name)
     {
         Greeting greeting = greetingRepository.findByName(name)
-            .orElse(greeting(name));
+            .orElse(new Greeting().setName(name));
 
         greetingRepository.save(greeting);
     }
