@@ -28,10 +28,6 @@
         <maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
         <mockito.version>2.23.4</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-security-test.version>5.1.3.RELEASE</spring-security-test.version>
-        <spring-test.version>5.1.4.RELEASE</spring-test.version>
-
-        <start-class>quebec.virtualite.backend.Application</start-class>
 
         <!--Backend-->
         <flyway.version>5.2.4</flyway.version>
@@ -44,18 +40,12 @@
         <!--Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -73,14 +63,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring-test.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <version>${spring-security-test.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -115,6 +97,7 @@
         </dependency>
 
         <!--Mockito-->
+        <!--FIXME1 Implement BDD Mockito-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -257,5 +240,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -22,8 +22,8 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static quebec.virtualite.backend.Application.TEST_PASSWORD;
-import static quebec.virtualite.backend.Application.TEST_USER;
+import static quebec.virtualite.backend.security.SecurityUsers.TEST_PASSWORD;
+import static quebec.virtualite.backend.security.SecurityUsers.TEST_USER;
 import static quebec.virtualite.backend.utils.RestParam.param;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
