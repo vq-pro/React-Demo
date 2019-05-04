@@ -1,10 +1,10 @@
 package quebec.virtualite.backend.services.rest;
 
-import cucumber.api.DataTable;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -83,11 +83,11 @@ public class RestServerSteps
     }
 
     private <T> DataTable dataTable(
-        List<Object> header,
+        List<String> header,
         List<T> rows,
-        Function<T, List<Object>> forEachRow)
+        Function<T, List<String>> forEachRow)
     {
-        List<List<Object>> raw = new ArrayList<>();
+        List<List<String>> raw = new ArrayList<>();
 
         raw.add(header);
         raw.addAll(rows
