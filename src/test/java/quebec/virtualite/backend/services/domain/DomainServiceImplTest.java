@@ -56,6 +56,6 @@ public class DomainServiceImplTest
 
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
-        verify(mockedGreetingRepository).save(new Greeting().setName(NAME));
+        verify(mockedGreetingRepository).save(new Greeting(NAME));
     }
 }
