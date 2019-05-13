@@ -4,6 +4,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +13,17 @@ import quebec.virtualite.backend.services.domain.DomainService;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
+import static java.util.stream.Collectors.toList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static quebec.virtualite.backend.Application.TEST_PASSWORD;
-import static quebec.virtualite.backend.Application.TEST_USER;
+import static quebec.virtualite.backend.security.SecurityUsers.TEST_PASSWORD;
+import static quebec.virtualite.backend.security.SecurityUsers.TEST_USER;
 import static quebec.virtualite.backend.utils.RestParam.param;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -78,5 +83,19 @@ public class RestServerSteps
     public void weShouldGetAnError(int errorCode)
     {
         assertThat(rest.response().statusCode(), is(errorCode));
+    }
+
+    private <T> DataTable dataTable(
+        List<String> header,
+        List<T> rows,
+        Function<T, List<String>> forEachRow)
+    {
+        List<List<String>> raw = new ArrayList<>();
+
+        raw.add(header);
+        raw.addAll(rows
+            .stream().map(forEachRow).collect(toList()));
+
+        return DataTable.create(raw);
     }
 }

@@ -10,7 +10,7 @@ import static cucumber.api.SnippetType.CAMELCASE;
 @CucumberOptions
     (
         features = "src/features",
-        format =
+        plugin =
             {
                 "html:target/cucumber-reports",
                 "junit:target/cucumber-reports/cucumber.xml"
@@ -18,7 +18,7 @@ import static cucumber.api.SnippetType.CAMELCASE;
         monochrome = true,
         strict = true,
         snippets = CAMELCASE,
-        tags = "~@Ignore"
+        tags = "not @Ignore"
     )
 public class zCucumberIT
 {
