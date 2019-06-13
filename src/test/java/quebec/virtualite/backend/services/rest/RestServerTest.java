@@ -6,10 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import quebec.virtualite.backend.services.domain.DomainService;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
-
-import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -30,19 +26,11 @@ public class RestServerTest
     public void greet()
     {
         // When
-        checkMono(server.greet(NAME), output -> {
+        GreetingResponse response = server.greet(NAME);
 
-            // Then
-            assertThat(output.content, is("Hello " + NAME + "!"));
+        // Then
+        verify(mockedDomainService).recordGreeting(NAME);
 
-            verify(mockedDomainService).recordGreeting(NAME);
-        });
-    }
-
-    private static <T> void checkMono(Mono<T> mono, Consumer<T> verifications)
-    {
-        StepVerifier.create(mono)
-            .assertNext(verifications)
-            .verifyComplete();
+        assertThat(response.content, is("Hello " + NAME + "!"));
     }
 }
