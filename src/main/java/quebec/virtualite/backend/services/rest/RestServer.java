@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import quebec.virtualite.backend.services.domain.DomainService;
-import reactor.core.publisher.Mono;
 
 import static java.lang.String.format;
 
@@ -24,7 +23,7 @@ public class RestServer
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/greetings/{name}")
-    public Mono<GreetingResponse> greet(@PathVariable String name)
+    public GreetingResponse greet(@PathVariable String name)
     {
         log.warn("Greeting!");
 
@@ -33,6 +32,6 @@ public class RestServer
         GreetingResponse response = new GreetingResponse();
         response.content = format("Hello %s!", name);
 
-        return Mono.just(response);
+        return response;
     }
 }
