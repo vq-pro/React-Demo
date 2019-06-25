@@ -21,10 +21,24 @@ public class Greeting
 
     private String name;
 
+    private Greeting()
+    {
+    }
+
+    public Greeting(String name)
+    {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object that)
     {
         return reflectionEquals(this, that);
+    }
+
+    public long getId()
+    {
+        return id;
     }
 
     @Override
@@ -33,25 +47,14 @@ public class Greeting
         return reflectionHashCode(this);
     }
 
-    @Override
-    public String toString()
-    {
-        return reflectionToString(this, SHORT_PREFIX_STYLE);
-    }
-
-    public long getId()
-    {
-        return id;
-    }
-
     public String getName()
     {
         return name;
     }
 
-    public Greeting setName(String name)
+    @Override
+    public String toString()
     {
-        this.name = name;
-        return this;
+        return reflectionToString(this, SHORT_PREFIX_STYLE);
     }
 }

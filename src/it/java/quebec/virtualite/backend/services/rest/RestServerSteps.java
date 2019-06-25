@@ -4,7 +4,6 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.cucumber.datatable.DataTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +12,7 @@ import quebec.virtualite.backend.services.domain.DomainService;
 import quebec.virtualite.backend.utils.RestClient;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
-import static java.util.stream.Collectors.toList;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -63,10 +58,13 @@ public class RestServerSteps
         // Nothing to do here
     }
 
-    @When("^we ask for a greeting for \"([^\"]*)\" \\[GET \"([^\"]*)\"\\]$")
-    public void weAskForAGreetingFor(String nameValue, String url)
+    /**
+     * Server Unit Test: {@link RestServerTest#greet()}
+     */
+    @When("we ask for a greeting for {string} [GET {string}]")
+    public void weAskForAGreetingForGET(String name, String url)
     {
-        rest.get(url, param("name", nameValue));
+        rest.get(url, param("name", name));
     }
 
     @Then("^we get a greeting message$")
@@ -76,23 +74,9 @@ public class RestServerSteps
         assertThat(rest.response().asString(), is(rest.trim(expectedJson)));
     }
 
-    @Then("^we should get a (\\d+) error$")
-    public void weShouldGetAnError(int errorCode)
+    @Then("we should get a {int} error")
+    public void weShouldGetAError(int errorCode)
     {
         assertThat(rest.response().statusCode(), is(errorCode));
-    }
-
-    private <T> DataTable dataTable(
-        List<String> header,
-        List<T> rows,
-        Function<T, List<String>> forEachRow)
-    {
-        List<List<String>> raw = new ArrayList<>();
-
-        raw.add(header);
-        raw.addAll(rows
-            .stream().map(forEachRow).collect(toList()));
-
-        return DataTable.create(raw);
     }
 }

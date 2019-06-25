@@ -14,7 +14,6 @@ import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
-import static quebec.virtualite.backend.services.domain.entities.GreetingBuilder.greeting;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DomainServiceImplTest
@@ -57,6 +56,6 @@ public class DomainServiceImplTest
 
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
-        verify(mockedGreetingRepository).save(greeting(NAME));
+        verify(mockedGreetingRepository).save(new Greeting(NAME));
     }
 }
