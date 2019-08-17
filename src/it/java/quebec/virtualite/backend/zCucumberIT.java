@@ -15,6 +15,7 @@ import static cucumber.api.SnippetType.CAMELCASE;
                 "html:target/cucumber-reports",
                 "junit:target/cucumber-reports/cucumber.xml"
             },
+        junit = "--step-notifications",
         monochrome = true,
         strict = true,
         snippets = CAMELCASE,
