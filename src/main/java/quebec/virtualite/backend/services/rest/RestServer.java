@@ -29,9 +29,7 @@ public class RestServer
 
         domainService.recordGreeting(name);
 
-        GreetingResponse response = new GreetingResponse();
-        response.content = format("Hello %s!", name);
-
-        return response;
+        return new GreetingResponse()
+                .content(format("Hello %s!", name));
     }
 }
