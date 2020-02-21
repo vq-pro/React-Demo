@@ -30,6 +30,6 @@ public class RestServer
         domainService.recordGreeting(name);
 
         return new GreetingResponse()
-                .content(format("Hello %s!", name));
+                .setContent(format("Hello %s!", name));
     }
 }

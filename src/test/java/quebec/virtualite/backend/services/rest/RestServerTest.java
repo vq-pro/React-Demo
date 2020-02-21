@@ -31,6 +31,6 @@ public class RestServerTest
         // Then
         verify(mockedDomainService).recordGreeting(NAME);
 
-        assertThat(response.content, is("Hello " + NAME + "!"));
+        assertThat(response.getContent(), is("Hello " + NAME + "!"));
     }
 }

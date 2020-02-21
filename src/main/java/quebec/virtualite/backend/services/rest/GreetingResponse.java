@@ -1,13 +1,11 @@
 package quebec.virtualite.backend.services.rest;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
-@Accessors(fluent = true)
-@Getter
-@Setter
+@Accessors(chain = true)
+@Data
 public class GreetingResponse
 {
-    public String content;
+    private String content;
 }
