@@ -61,10 +61,10 @@ public class RestServerSteps
     /**
      * Server Unit Test: {@link RestServerTest#greet()}
      */
-    @When("we ask for a greeting for {string} [GET {string}]")
+    @When("we ask for a greeting for {string} [PUT {string}]")
     public void weAskForAGreetingForGET(String name, String url)
     {
-        rest.get(url, param("name", name));
+        rest.put(url, param("name", name));
     }
 
     @Then("^we get a greeting message$")

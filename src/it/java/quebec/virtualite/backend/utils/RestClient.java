@@ -57,6 +57,15 @@ public class RestClient
             .post(url);
     }
 
+    public void put(String url, RestParam param)
+    {
+        url = setParam(url, param);
+
+        response = requestForWrites()
+            .contentType(JSON)
+            .put(url);
+    }
+
     public Response response()
     {
         return response;
