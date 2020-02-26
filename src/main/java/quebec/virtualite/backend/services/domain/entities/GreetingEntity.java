@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Greeting
+public class GreetingEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

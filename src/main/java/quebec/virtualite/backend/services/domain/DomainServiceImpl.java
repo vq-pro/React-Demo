@@ -3,7 +3,7 @@ package quebec.virtualite.backend.services.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import quebec.virtualite.backend.services.domain.database.GreetingRepository;
-import quebec.virtualite.backend.services.domain.entities.Greeting;
+import quebec.virtualite.backend.services.domain.entities.GreetingEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class DomainServiceImpl implements DomainService
     }
 
     @Override
-    public List<Greeting> getGreetings()
+    public List<GreetingEntity> getGreetings()
     {
         return list(greetingRepository.findAll());
     }
@@ -29,8 +29,8 @@ public class DomainServiceImpl implements DomainService
     @Override
     public void recordGreeting(String name)
     {
-        Greeting greeting = greetingRepository.findByName(name)
-            .orElse(new Greeting()
+        GreetingEntity greeting = greetingRepository.findByName(name)
+            .orElse(new GreetingEntity()
                 .setName(name));
 
         greetingRepository.save(greeting);

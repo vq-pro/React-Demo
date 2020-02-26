@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import quebec.virtualite.backend.services.domain.database.GreetingRepository;
-import quebec.virtualite.backend.services.domain.entities.Greeting;
+import quebec.virtualite.backend.services.domain.entities.GreetingEntity;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class DomainServiceImplTest
     public void getGreetings()
     {
         // When
-        List<Greeting> greetings = domainService.getGreetings();
+        List<GreetingEntity> greetings = domainService.getGreetings();
 
         // Then
         verify(mockedGreetingRepository).findAll();
@@ -57,7 +57,7 @@ public class DomainServiceImplTest
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
         verify(mockedGreetingRepository).save(
-            new Greeting()
+            new GreetingEntity()
                 .setName(NAME));
     }
 }
