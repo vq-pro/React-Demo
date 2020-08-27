@@ -34,7 +34,7 @@ class RestServerSteps
     @PostConstruct
     fun init()
     {
-        rest._init(serverPort)
+        rest.init(serverPort)
     }
 
     @Before
@@ -43,37 +43,37 @@ class RestServerSteps
         domainService.deleteGreetings()
     }
 
-    @Given("^we are logged in$")
-    fun weAreLoggedIn()
+    @Given("we are logged in")
+    fun givenWeAreLoggedIn()
     {
         rest.login(SecurityUsers.TEST_USER, SecurityUsers.TEST_PASSWORD)
     }
 
-    @Given("^we are not logged in$")
-    fun weAreNotLoggedIn()
+    @Given("we are not logged in")
+    fun givenWeAreNotLoggedIn()
     {
         // Nothing to do here
     }
 
-    /**
-     * Server Unit Test: [RestServerTest.greet]
-     */
-    @When("we ask for a greeting for {string} [PUT {string}]")
-    fun weAskForAGreetingForGET(name: String, url: String)
-    {
-        rest.put(url, RestParam("name", name))
-    }
-
-    @Then("^we get a greeting message$")
-    fun weGetAGreetingMessage(expectedJson: String)
+    @Then("we get a greeting message")
+    fun thenWeGetAGreetingMessage(expectedJson: String)
     {
         assertThat(rest.response().statusCode(), equalTo(HttpStatus.SC_OK))
         assertThat(rest.response().asString(), equalTo(rest.trim(expectedJson)))
     }
 
     @Then("we should get a {int} error")
-    fun weShouldGetAError(errorCode: Int)
+    fun thenWeShouldGetAError(errorCode: Int)
     {
         assertThat(rest.response().statusCode(), equalTo(errorCode))
+    }
+
+    /**
+     * Server Unit Test: [RestServerTest.greet]
+     */
+    @When("we ask for a greeting for {string} [PUT {string}]")
+    fun whenWeAskForAGreeting(name: String, url: String)
+    {
+        rest.put(url, RestParam("name", name))
     }
 }

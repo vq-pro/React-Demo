@@ -21,7 +21,7 @@ class RestClient
     private var username: String? = null
     private var password: String? = null
 
-    fun _init(serverPort: Int)
+    fun init(serverPort: Int)
     {
         RestAssured.port = serverPort
         clearUser()

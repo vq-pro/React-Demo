@@ -36,7 +36,7 @@ public class RestServerIT
     @Before
     public void _init()
     {
-        rest._init(serverPort);
+        rest.init(serverPort);
         domainService.deleteGreetings();
     }
 
