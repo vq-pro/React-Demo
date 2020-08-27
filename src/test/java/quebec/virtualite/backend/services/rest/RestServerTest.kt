@@ -30,6 +30,6 @@ class RestServerTest
         // Then
         verify(mockedDomainService).recordGreeting(NAME)
 
-        assertThat(response.content, equalTo("Hello " + NAME + "!"))
+        assertThat(response.content, equalTo("Hello $NAME!"))
     }
 }
