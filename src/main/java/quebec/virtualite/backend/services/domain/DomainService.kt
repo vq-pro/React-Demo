@@ -1,14 +1,10 @@
-package quebec.virtualite.backend.services.domain;
+package quebec.virtualite.backend.services.domain
 
-import quebec.virtualite.backend.services.domain.entities.GreetingEntity;
+import quebec.virtualite.backend.services.domain.entities.GreetingEntity
 
-import java.util.List;
-
-public interface DomainService
+interface DomainService
 {
-    void deleteGreetings();
-
-    List<GreetingEntity> getGreetings();
-
-    void recordGreeting(String name);
+    fun deleteGreetings()
+    fun getGreetings(): List<GreetingEntity>
+    fun recordGreeting(name: String)
 }

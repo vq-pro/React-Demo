@@ -1,13 +1,12 @@
-package quebec.virtualite.backend.services.domain.database;
+package quebec.virtualite.backend.services.domain.database
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-import quebec.virtualite.backend.services.domain.entities.GreetingEntity;
-
-import java.util.Optional;
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
+import quebec.virtualite.backend.services.domain.entities.GreetingEntity
+import java.util.*
 
 @Repository
-public interface GreetingRepository extends CrudRepository<GreetingEntity, Long>
+interface GreetingRepository : CrudRepository<GreetingEntity, Long>
 {
-    Optional<GreetingEntity> findByName(String name);
+    fun findByName(name: String): GreetingEntity?
 }
