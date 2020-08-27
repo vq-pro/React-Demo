@@ -21,7 +21,7 @@ public class DomainServiceImplTest
     private static final String NAME = "name";
 
     @InjectMocks
-    private DomainService domainService = new DomainServiceImpl();
+    private final DomainService domainService = new DomainServiceImpl();
 
     @Mock
     private GreetingRepository mockedGreetingRepository;
@@ -56,8 +56,6 @@ public class DomainServiceImplTest
 
         // Then
         verify(mockedGreetingRepository).findByName(NAME);
-        verify(mockedGreetingRepository).save(
-            new GreetingEntity()
-                .setName(NAME));
+        verify(mockedGreetingRepository).save(new GreetingEntity(NAME));
     }
 }

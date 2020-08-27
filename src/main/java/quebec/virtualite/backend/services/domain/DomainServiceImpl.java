@@ -30,8 +30,7 @@ public class DomainServiceImpl implements DomainService
     public void recordGreeting(String name)
     {
         GreetingEntity greeting = greetingRepository.findByName(name)
-            .orElse(new GreetingEntity()
-                .setName(name));
+            .orElse(new GreetingEntity(name));
 
         greetingRepository.save(greeting);
     }
