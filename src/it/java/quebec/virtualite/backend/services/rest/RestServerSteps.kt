@@ -5,8 +5,8 @@ import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import org.apache.http.HttpStatus
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
-import org.junit.Assert
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
@@ -67,13 +67,13 @@ class RestServerSteps
     @Then("^we get a greeting message$")
     fun weGetAGreetingMessage(expectedJson: String)
     {
-        Assert.assertThat(rest.response().statusCode(), equalTo(HttpStatus.SC_OK))
-        Assert.assertThat(rest.response().asString(), equalTo(rest.trim(expectedJson)))
+        assertThat(rest.response().statusCode(), equalTo(HttpStatus.SC_OK))
+        assertThat(rest.response().asString(), equalTo(rest.trim(expectedJson)))
     }
 
     @Then("we should get a {int} error")
     fun weShouldGetAError(errorCode: Int)
     {
-        Assert.assertThat(rest.response().statusCode(), equalTo(errorCode))
+        assertThat(rest.response().statusCode(), equalTo(errorCode))
     }
 }

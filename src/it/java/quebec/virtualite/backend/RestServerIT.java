@@ -13,8 +13,8 @@ import quebec.virtualite.backend.utils.RestClient;
 import quebec.virtualite.backend.utils.RestParam;
 
 import static org.apache.http.HttpStatus.SC_OK;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static quebec.virtualite.backend.security.SecurityUsers.TEST_PASSWORD;
 import static quebec.virtualite.backend.security.SecurityUsers.TEST_USER;
