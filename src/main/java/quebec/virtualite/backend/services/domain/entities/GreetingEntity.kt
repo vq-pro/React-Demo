@@ -8,7 +8,10 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "greetings")
-data class GreetingEntity(var name: String = "")
+data class GreetingEntity
+(
+    var name: String = ""
+)
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
