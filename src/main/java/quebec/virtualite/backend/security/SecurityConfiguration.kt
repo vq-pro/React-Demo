@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import javax.sql.DataSource
 
+private const val XSRF_TOKEN = "XSRF-TOKEN"
+private const val X_XSRF_TOKEN = "X-XSRF-TOKEN"
+
 @Configuration
 @EnableWebSecurity
 open class SecurityConfiguration : WebSecurityConfigurerAdapter()
@@ -76,11 +79,5 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter()
 
             filterChain.doFilter(request, response)
         }
-    }
-
-    companion object
-    {
-        private const val XSRF_TOKEN = "XSRF-TOKEN"
-        private const val X_XSRF_TOKEN = "X-XSRF-TOKEN"
     }
 }

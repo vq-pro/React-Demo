@@ -9,6 +9,8 @@ import quebec.virtualite.backend.security.SecurityUsers.TEST_PASSWORD
 import quebec.virtualite.backend.security.SecurityUsers.TEST_USER
 import javax.annotation.PostConstruct
 
+private val log = LoggerFactory.getLogger(Application::class.java)
+
 @SpringBootApplication(scanBasePackages = ["quebec.virtualite.*"])
 open class Application
 {
@@ -17,8 +19,6 @@ open class Application
 
     companion object
     {
-        private val log = LoggerFactory.getLogger(Application::class.java)
-
         @JvmStatic
         fun main(args: Array<String>)
         {

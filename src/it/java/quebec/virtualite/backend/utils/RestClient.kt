@@ -5,10 +5,14 @@ import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsString
-import org.junit.Assert.assertThat
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
+
+private const val NON_BREAKING_SPACE = 0x00A0.toChar()
+private const val XSRF_TOKEN = "XSRF-TOKEN"
+private const val X_XSRF_TOKEN = "X-XSRF-TOKEN"
 
 @Component
 class RestClient
@@ -119,12 +123,5 @@ class RestClient
 
         assertThat("Error in URL", url, containsString(paramName))
         return url.replace(paramName, param.value.toString())
-    }
-
-    companion object
-    {
-        private const val NON_BREAKING_SPACE = 0x00A0.toChar()
-        private const val XSRF_TOKEN = "XSRF-TOKEN"
-        private const val X_XSRF_TOKEN = "X-XSRF-TOKEN"
     }
 }

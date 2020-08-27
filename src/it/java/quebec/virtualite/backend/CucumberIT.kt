@@ -16,4 +16,4 @@ import org.junit.runner.RunWith
     snippets = CAMELCASE,
     tags = ["not @Ignore"]
 )
-class zCucumberIT
+class CucumberIT
