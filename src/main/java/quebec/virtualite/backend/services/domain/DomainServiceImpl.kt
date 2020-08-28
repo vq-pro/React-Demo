@@ -23,7 +23,8 @@ class DomainServiceImpl : DomainService
 
     override fun recordGreeting(name: String)
     {
-        val greeting = greetingRepository.findByName(name) ?: GreetingEntity(name)
+        val greeting = greetingRepository.findByName(name)
+            ?: GreetingEntity(name)
 
         greetingRepository.save(greeting)
     }
